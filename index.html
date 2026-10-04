@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+  <meta name="theme-color" content="#0b1118">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Borderfall">
+  <title>BORDERFALL</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+    <header class="topbar glass">
+      <div class="brand-wrap">
+        <div class="brand-mark" aria-hidden="true"></div>
+        <div><div class="brand">BORDERFALL</div><div class="subtitle">AUTONOMOUS WAR SANDBOX</div></div>
+      </div>
+      <div class="world-readout">
+        <span id="yearLabel">YEAR 1</span>
+        <span class="dot"></span>
+        <span id="nationCount">0 NATIONS</span>
+        <span class="dot"></span>
+        <span id="warCount">0 WARS</span>
+      </div>
+      <div class="top-actions">
+        <button id="pauseBtn" class="icon-btn" title="Pause">II</button>
+        <button data-speed="1" class="speed-btn active">1x</button>
+        <button data-speed="2" class="speed-btn">2x</button>
+        <button data-speed="4" class="speed-btn">4x</button>
+        <button data-speed="8" class="speed-btn">8x</button>
+        <button id="settingsBtn" class="icon-btn wide">SETTINGS</button>
+      </div>
+    </header>
+
+    <main class="stage">
+      <canvas id="world" aria-label="Borderfall world map"></canvas>
+      <div class="vignette"></div>
+      <div id="toast" class="toast"></div>
+
+      <section class="left-panel glass">
+        <div class="panel-title">WORLD CONTROL</div>
+        <div class="button-grid">
+          <button id="newWorldBtn" class="primary">NEW WORLD</button>
+          <button id="presetsBtn">SCENARIOS</button>
+          <button id="godBtn">GOD MODE</button>
+          <button id="statsBtn">STATISTICS</button>
+          <button id="saveBtn">SAVE</button>
+          <button id="loadBtn">LOAD</button>
+          <button id="exportBtn">EXPORT</button>
+          <button id="importBtn">IMPORT</button>
+        </div>
+        <div class="section-sep"></div>
+        <div class="panel-title small">SIMULATION</div>
+        <label class="range-row"><span>AI CHAOS</span><input id="chaosSlider" type="range" min="0" max="100" value="58"><b id="chaosValue">58</b></label>
+        <label class="range-row"><span>REBELLIONS</span><input id="revoltSlider" type="range" min="0" max="100" value="45"><b id="revoltValue">45</b></label>
+        <label class="switch-row"><span>FOG OF WAR</span><input id="fogToggle" type="checkbox"><i></i></label>
+        <label class="switch-row"><span>FRONTLINE UNITS</span><input id="unitsToggle" type="checkbox" checked><i></i></label>
+      </section>
+
+      <section id="inspector" class="right-panel glass hidden">
+        <div class="inspector-head">
+          <div id="flag" class="flag"></div>
+          <div><h2 id="nationName">Nation</h2><p id="nationStatus">Independent state</p></div>
+          <button id="closeInspector" class="close-btn">X</button>
+        </div>
+        <div class="meter-group">
+          <div class="metric"><span>TERRITORY</span><b id="mTerritory">0</b></div>
+          <div class="metric"><span>POPULATION</span><b id="mPop">0</b></div>
+          <div class="metric"><span>ARMY</span><b id="mArmy">0</b></div>
+          <div class="metric"><span>TREASURY</span><b id="mMoney">0</b></div>
+          <div class="metric"><span>TECH</span><b id="mTech">0</b></div>
+          <div class="metric"><span>STABILITY</span><b id="mStability">0%</b></div>
+        </div>
+        <div class="bar-label"><span>WAR CAPACITY</span><b id="powerText">0</b></div>
+        <div class="bar"><i id="powerBar"></i></div>
+        <div class="bar-label"><span>STABILITY</span><b id="stabilityText">0%</b></div>
+        <div class="bar stability"><i id="stabilityBar"></i></div>
+        <div class="section-sep"></div>
+        <div class="panel-title small">DIPLOMACY</div>
+        <div id="diplomacyList" class="diplomacy-list"></div>
+      </section>
+
+      <section class="timeline glass">
+        <div class="timeline-head"><b>WORLD HISTORY</b><button id="clearLogBtn">CLEAR</button></div>
+        <div id="eventLog" class="event-log"></div>
+      </section>
+
+      <section id="godTray" class="god-tray glass hidden">
+        <div class="god-label">GOD MODE</div>
+        <button data-god="war">FORCE WAR</button>
+        <button data-god="peace">FORCE PEACE</button>
+        <button data-god="ally">FORM ALLIANCE</button>
+        <button data-god="boost">BOOST NATION</button>
+        <button data-god="collapse">COLLAPSE</button>
+        <button data-god="revolt">SPAWN REVOLT</button>
+        <button data-god="nuke" class="danger">STRATEGIC STRIKE</button>
+        <button data-god="paint">PAINT BORDERS</button>
+      </section>
+
+      <section id="lobbyPanel" class="lobby-mini glass">
+        <div><b>BOT LOBBY</b><span id="roomState">PUBLIC</span></div>
+        <div id="spectators" class="spectators">4 AI OBSERVERS</div>
+        <button id="lobbyBtn">ROOM</button>
+      </section>
+    </main>
+  </div>
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-card glass">
+      <button id="modalClose" class="close-btn modal-close">X</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <input id="importFile" type="file" accept="application/json,.json" hidden>
+  <script src="warfront.js"></script>
+</body>
+</html>
